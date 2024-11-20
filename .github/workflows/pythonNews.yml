@@ -25,11 +25,3 @@ jobs:
     - name: Run Python
       run: |
         python cnNews.py
-    - name: Commit changes
-      run: |
-        git config --global user.email BOT@github.com
-        git config --global user.name githubBOT
-        git add .
-        git commit -m "update" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
