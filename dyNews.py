@@ -2,7 +2,6 @@ import json, re, time
 from datetime import datetime
 import requests
 from lxml import etree
-import pyshorteners as ps
 
 def tiny_url(long_url):
     # Adf.ly Bit.ly Chilp.it Clck.ru Cutt.ly Da.gd Git.io
