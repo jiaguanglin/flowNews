@@ -6,7 +6,7 @@ on:
     - master
   workflow_dispatch:
   schedule:
-    - cron: '40 7 * * *'
+    - cron: '30 7 * * *'
 
 jobs:
   build-linux:
