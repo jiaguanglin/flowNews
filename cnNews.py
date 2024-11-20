@@ -19,7 +19,7 @@ def get_hanlder(url):
         exit()
 
 def get_news():
-    strTime = (datetime.date.today() + datetime.timedelta(-1)).strftime("%Y%m%d")
+    strTime = (datetime.date.today() + datetime.timedelta(0)).strftime("%Y%m%d")
     url = f'https://tv.cctv.com/lm/xwlb/day/{strTime}.shtml'
     rsp = get_hanlder(url)
     etr = etree.HTML(rsp)
@@ -63,6 +63,6 @@ def weixin_push(content):
         print(result)
 
 if __name__ == '__main__':
-    news_time = (datetime.date.today() + datetime.timedelta(-1)).strftime("%Y年%m月%d日")
+    news_time = (datetime.date.today() + datetime.timedelta(0)).strftime("%Y年%m月%d日")
     wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     weixin_push(message_content(news_time))
