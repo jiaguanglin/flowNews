@@ -1,4 +1,4 @@
-name: Python news
+name: news1
 
 on:
   push:
