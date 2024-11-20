@@ -19,7 +19,8 @@ def get_zakers():
         summary = '%d、' % flag + a['title'] + '\n\n'
         newslist = newslist + summary 
         flag += 1
-    for i in range(0, len(article)):
+    # for i in range(0, len(article)):
+    for i in range(0, 35):
         summary = '%d、' % flag + article[i].a['title'] + '\t来源：' + src[i].a['title'] + '\n\n'
         newslist = newslist + summary
         flag += 1
