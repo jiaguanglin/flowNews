@@ -1,0 +1,35 @@
+name: Python news
+
+on:
+  push:
+    branches:
+    - master
+  workflow_dispatch:
+  schedule:
+    - cron: '35 * * * *'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        pip install requests numpy pandas
+    - name: Run Python
+      run: |
+        python cnemcv2.py
+    - name: Commit changes
+      run: |
+        git config --global user.email BOT@github.com
+        git config --global user.name githubBOT
+        git add .
+        git commit -m "update" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
