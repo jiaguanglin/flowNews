@@ -53,7 +53,7 @@ def weixin_push(content):
         print(result)
 
 if __name__ == '__main__':
-    news_time = (datetime.datetime.now()).strftime("%Y年%m月%d日 %H时")
+    news_time = (datetime.datetime.now()+datetime.timedelta(hours=8)).strftime("%Y年%m月%d日 %H时")
     # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
     weixin_push(message_content(news_time))
