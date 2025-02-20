@@ -10,33 +10,7 @@ def tiny_url(long_url):
     # tiny_url = ps.Shortener().clckru.short(long_url)
     tiny_url = ps.Shortener().osdb.short(long_url)    
     return tiny_url
-
-def get_clsnews(): 
-    week = {0: "周一", 1: "周二", 2: "周三", 3: "周四", 4: "周五", 5: "周六", 6: "周日"}
-    url = "https://www.cls.cn/api/sw?app=CailianpressWeb&os=web&sv=7.7.5"
-    data = {"type": "telegram", "keyword": "你需要知道的隔夜全球要闻", "page": 0,
-            "rn": 1, "os": "web", "sv": "7.7.5", "app": "CailianpressWeb"}
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0"}
-    try:
-        rsp = requests.post(url=url, headers=headers, data=data)
-        data = json.loads(rsp.text)["data"]["telegram"]["data"][0]
-        news = data["descr"]
-        timestamp = data["time"]
-        ts = time.localtime(timestamp)
-        weekday_news = datetime(*ts[:6]).weekday()
-    except Exception as e:
-        print(e)
-        return ""
-    weekday_now = datetime.now().weekday()
-    if weekday_news != weekday_now:
-        return ""
-    fmt_time = time.strftime("%Y年%m月%d日", ts)
-    news = re.sub(r"(\d{1,2}、)", r"\n\n\1", news)
-    fmt_news = "".join(etree.HTML(news).xpath(" // text()"))
-    fmt_news = re.sub(r"周[一|二|三|四|五|六|日]你需要知道的", r"", fmt_news)
-    return f"{fmt_time} {week[weekday_news]}\n\n{fmt_news}"
-    
+   
 def get_sinanews(news_type,news_time):
     news_headers = {
         "Accept": "*/*",
@@ -98,7 +72,6 @@ def get_sentence():
 def message_content(news_time):
     sina_china = get_sinanews('news_china_suda',news_time)
     content = (
-        get_clsnews() +"\n\n"+
         "【国内时政】\n\n"+
         str(sina_china[0:6]).replace("['","").replace("', '",'\n\n').replace("']",'\n')+"\n"+
         "【金八传媒】\n"+
@@ -126,6 +99,6 @@ def weixin_push(content):
 
 if __name__ == '__main__':
     info_time = datetime.now()
-    wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     news_time = datetime.strftime(info_time,"%Y%m%d")
+    wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     weixin_push(message_content(news_time))
