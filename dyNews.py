@@ -35,7 +35,7 @@ def get_clsnews():
     news = re.sub(r"(\d{1,2}、)", r"\n\n\1", news)
     fmt_news = "".join(etree.HTML(news).xpath(" // text()"))
     fmt_news = re.sub(r"周[一|二|三|四|五|六|日]你需要知道的", r"", fmt_news)
-    return f"{fmt_time} {week[weekday_news]}\n\n{fmt_news}"
+    return print(f"{fmt_time} {week[weekday_news]}\n\n{fmt_news}")
     
 def get_sinanews(news_type,news_time):
     news_headers = {
