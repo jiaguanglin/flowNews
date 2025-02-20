@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-
+# weibo hots
 import os, requests
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
