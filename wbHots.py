@@ -97,32 +97,32 @@ def webHot():
     img(hot_li,hot_label)
 
 def upload_image(time_name):
-    img_path = f"https://github.com/jiaguanglin/flowNews/tree/main/archive/{time_name}.png"
-    with open(img_path) as f:
-        files = {'file': f}
-        upload_url = f"https://github.com/jiaguanglin/flowNews/tree/main/archive/{time_name}.png"
-        response = requests.post(upload_url, files=files)
-    return response.json()['media_id']
+    img_path = f"archive/{time_name}.png"
+    print(img_path)
+    with open(img_path, 'rb') as f:
+        image = f.read()
+        img_64 = base64.b64encode(image)#, enocding='utf-8'
+        img_h5 = hashlib.md5(image)
+        img64 = img_64.decode('utf8')
+        imgh5 = img_h5.hexdigest()
+    return img64, imgh5
 
-def weixin_push(media_id):
+def weixin_push(time_name):
+    img64, imgh5 = upload_image(time_name)
     payload = {
             "msgtype":"image",
             "touser":"@all",
             "image":{
-                    "media_id": media_id
+                    "base64": img64,
+		            "md5": imgh5
             }
         }
-    headers = {'Content-Type': 'application/json'}
-    resp = requests.post('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s'%wxbootkey,data=json.dumps(payload), headers=headers)
+    resp = requests.post('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s'%wxbootkey, json=payload)
     result = resp.json()
-    if result["errcode"] == 0:
-        print("消息发送成功")
-    else:
-        print(result)
 
 if __name__ == '__main__':
     time_name = datetime.now().strftime('20%y年%m月%d日%H')
-    # webHot()
+    webHot()
     # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
     weixin_push(upload_image(time_name))
