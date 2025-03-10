@@ -97,10 +97,10 @@ def webHot():
     img(hot_li,hot_label)
 
 def upload_image(time_name):
-    img_path = f"archive/{time_name}.png"
+    img_path = f"https://github.com/jiaguanglin/flowNews/tree/main/archive/{time_name}.png"
     with open(img_path) as f:
         files = {'file': f}
-        upload_url = f"archive/{time_name}.png"
+        upload_url = f"https://github.com/jiaguanglin/flowNews/tree/main/archive/{time_name}.png"
         response = requests.post(upload_url, files=files)
     return response.json()['media_id']
 
