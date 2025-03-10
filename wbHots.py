@@ -96,11 +96,12 @@ def webHot():
     hot_label = decoding(num)[1]
     img(hot_li,hot_label)
 
-def upload_image(img_path):
+def upload_image(time_name):
+    img_path = f"archive/{time_name}.png"
     with open(img_path) as f:
         files = {'file': f}
-        upload_url = f"
-        response = requests.post(upload_url,files=files)
+        upload_url = f"archive/{time_name}.png"
+        response = requests.post(upload_url, files=files)
     return response.json()['media_id']
 
 def weixin_push(media_id):
@@ -120,9 +121,8 @@ def weixin_push(media_id):
         print(result)
 
 if __name__ == '__main__':
-    # news_time = (datetime.datetime.now()+datetime.timedelta(hours=8)).strftime("%Y年%m月%d日 %H时")
     time_name = datetime.now().strftime('20%y年%m月%d日%H')
+    webHot()
     # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
-    webHot()
-    weixin_push(upload_image("archive/{time_name}.png"))
+    weixin_push(upload_image(time_name))
