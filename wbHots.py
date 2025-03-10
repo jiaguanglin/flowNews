@@ -89,9 +89,40 @@ def img(li,label):
         print("保存成功！")
     except:
         print("保存失败！！！")
-
-if __name__ == "__main__":
+        
+def webHot():
     num = 25 #获取热搜数
     hot_li = decoding(num)[0]
     hot_label = decoding(num)[1]
     img(hot_li,hot_label)
+
+def upload_image(img_path):
+    with open(img_path) as f:
+        files = {'file': f}
+        upload_url = f"
+        response = requests.post(upload_url,files=files)
+    return response.json()['media_id']
+
+def weixin_push(media_id):
+    payload = {
+            "msgtype":"image",
+            "touser":"@all",
+            "image":{
+                    "media_id":media_id
+            }
+        }
+    headers = {'Content-Type': 'application/json'}
+    resp = requests.post('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s'%wxbootkey,data=json.dumps(payload), headers=headers)
+    result = resp.json()
+    if result["errcode"] == 0:
+        print("消息发送成功")
+    else:
+        print(result)
+
+if __name__ == '__main__':
+    # news_time = (datetime.datetime.now()+datetime.timedelta(hours=8)).strftime("%Y年%m月%d日 %H时")
+    time_name = datetime.now().strftime('20%y年%m月%d日%H')
+    # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
+    wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
+    webHot()
+    weixin_push(upload_image("archive/{time_name}.png"))
