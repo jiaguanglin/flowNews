@@ -1,5 +1,5 @@
 # weibo hots
-import os, requests
+import os, requests, base64, hashlib
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 
@@ -114,7 +114,7 @@ def weixin_push(time_name):
             "touser":"@all",
             "image":{
                     "base64": img64,
-		            "md5": imgh5
+		    "md5": imgh5
             }
         }
     resp = requests.post('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s'%wxbootkey, json=payload)
@@ -125,4 +125,4 @@ if __name__ == '__main__':
     webHot()
     # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
-    weixin_push(upload_image(time_name))
+    weixin_push(time_name)
