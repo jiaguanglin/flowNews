@@ -54,5 +54,5 @@ def weixin_push(content):
 if __name__ == '__main__':
     # info_time = datetime.now()
     # news_time = datetime.strftime(info_time,"%Y%m%d")
-    wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
+    wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
     weixin_push(message_content())
