@@ -98,7 +98,7 @@ def webHot():
 
 def upload_image(time_name):
     img_path = f"archive/{time_name}.png"
-    print(img_path)
+    # print(img_path)
     with open(img_path, 'rb') as f:
         image = f.read()
         img_64 = base64.b64encode(image)#, enocding='utf-8'
