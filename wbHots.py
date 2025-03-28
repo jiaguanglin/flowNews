@@ -123,6 +123,5 @@ def weixin_push(time_name):
 if __name__ == '__main__':
     time_name = datetime.now().strftime('20%y年%m月%d日%H')
     webHot()
-    # wxbootkey = '61858489-6390-4dc8-8e1f-f58536d9fc35'
     wxbootkey = '38f8e08a-3f62-410e-9f84-b60799673f69'
     weixin_push(time_name)
